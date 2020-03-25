@@ -251,11 +251,12 @@ function Decorator(props) {
   const { children } = props;
 
   function setStyles({ theme, themeName }) {
-    const link = getOrCreate('theme-stylesheet');
+    const link = getOrCreate('custom-stylesheet');
     if (!theme) {
       link.parentNode && link.parentNode.removeChild(link);
     } else {
-      link.href = themeName === 'facebook' ? 'Button-fb.css' : 'Button-twt.css';
+      console.log(theme);
+      link.href = theme.css; // add a `css` property in your themes.
       children.appendChild(link);
     }
   }
