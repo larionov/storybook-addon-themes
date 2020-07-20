@@ -35,7 +35,7 @@ const Item = styled.div({
 const storybookIframe = 'storybook-preview-iframe';
 
 const defaultTheme = {
-  class: '',
+  attribute: '',
   color: 'transparent',
   default: true,
   name: 'default',
@@ -48,8 +48,8 @@ import { withThemes } from 'storybook-addon-themes';
 storiesOf('Button', module)
   .addDecorator(
     withThemes([
-      { name: "twitter", class: "theme-twt", color: "#00aced", default: true },
-      { name: "facebook", class: "theme-fb", color: "#3b5998" },
+      { name: "twitter", attribute: "theme-twt", color: "#00aced", default: true },
+      { name: "facebook", attribute: "theme-fb", color: "#3b5998" },
     ])
   )
   .add('with text', () => <button>Click me</button>);
@@ -60,8 +60,8 @@ const Instructions = () => (
     <Title>Setup Instructions</Title>
     <p>
       Please add the theme decorator definition to your story. The theme decorate accepts
-      an array of items, which should include a name for your color (preferably the css class name)
-      , a corresponding color / image value and the css class that will be added.
+      an array of items, which should include a name for your color (preferably the css attribute name)
+      , a corresponding color / image value and the css attribute that will be added.
     </p>
     <p>Below is an example of how to add the theme decorator to your story definition.</p>
     <Pre>
@@ -95,13 +95,13 @@ export default class ThemePanel extends Component {
       // debugger;
 
       const foundTheme =
-        current && themes.find(theme => theme.name === decodeURI(current) || theme.class === current || theme.color === current);
+        current && themes.find(theme => theme.name === decodeURI(current) || theme.attribute === current || theme.color === current);
 
       if (foundTheme) {
-        this.updateIframe(foundTheme.class);
+        this.updateIframe(foundTheme.attribute);
       } else if (defaultOrFirst) {
-        this.updateIframe(defaultOrFirst.class);
-        api.setQueryParams({ theme: defaultOrFirst.class });
+        this.updateIframe(defaultOrFirst.attribute);
+        api.setQueryParams({ theme: defaultOrFirst.attribute });
       }
     });
 
@@ -111,23 +111,23 @@ export default class ThemePanel extends Component {
     });
   }
 
-  setThemeFromSwatch = themeClass => {
+  setThemeFromSwatch = themeAttribute => {
     const { api } = this.props;
-    this.updateIframe(themeClass);
-    api.setQueryParams({ theme: themeClass });
+    this.updateIframe(themeAttribute);
+    api.setQueryParams({ theme: themeAttribute });
   };
 
-  updateIframe(themeClass) {
+  updateIframe(themeAttribute) {
     const { themes = [] } = this.state;
     const iframeDocument = this.iframe.contentDocument || this.iframe.contentWindow.document;
-    const { body } = iframeDocument;
-
+    const { documentElement } = iframeDocument;
+    console.log(documentElement);
     themes
-      .filter(theme => theme.class)
-      .forEach(theme => body.classList.remove(theme.class));
+      .filter(theme => theme.attribute)
+      .forEach(theme => documentElement.removeAttribute(theme.attribute));
 
-    if (themeClass) {
-      body.classList.add(themeClass);
+    if (themeAttribute) {
+      documentElement.setAttribute(themeAttribute, '');
     }
   }
 
@@ -146,7 +146,7 @@ export default class ThemePanel extends Component {
     return (
       <List>
         {themes.map((props) => (
-          <Item key={`${props.name} ${props.class}`}>
+          <Item key={`${props.name} ${props.attribute}`}>
             <Swatch {...props} setTheme={this.setThemeFromSwatch} />
           </Item>
         ))}

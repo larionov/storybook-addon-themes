@@ -44,7 +44,7 @@ const Value = styled.h4({
 });
 
 const Swatch = props => (
-  <Button onClick={() => props.setTheme(props.class)} onMouseDown={event => event.preventDefault()}>
+  <Button onClick={() => props.setTheme(props.attribute)} onMouseDown={event => event.preventDefault()}>
     <Block bg={props.color} />
     <Box>
       <Name>{props.name}:</Name>
@@ -56,7 +56,7 @@ const Swatch = props => (
 );
 Swatch.propTypes = {
   name: PropTypes.string.isRequired,
-  class: PropTypes.string.isRequired,
+  attribute: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
   setTheme: PropTypes.func.isRequired,
 };

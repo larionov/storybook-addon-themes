@@ -1,6 +1,6 @@
 {
-  "name": "storybook-addon-themes",
-  "version": "4.0.0",
+  "name": "@upwork/storybook-addon-themes-attribute",
+  "version": "4.0.1",
   "description": "A storybook addon to switch between different themes for your preview",
   "keywords": [
     "addon",
@@ -8,9 +8,9 @@
     "react",
     "storybook"
   ],
-  "homepage": "https://github.com/tonai/storybook-addon-themes",
+  "homepage": "https://github.com/larionov/storybook-addon-themes",
   "bugs": {
-    "url": "https://github.com/tonai/storybook-addon-themes/issues"
+    "url": "https://github.com/larionov/storybook-addon-themes/issues"
   },
   "license": "MIT",
   "author": "tonai",
